@@ -21,10 +21,13 @@ public class RepetitiveEvent extends Event {
      * <LI>ChronoUnit.MONTHS for monthly repetitions</LI>
      * </UL>
      */
+	
+	private ChronoUnit frequency;
+	private HashSet<LocalDate> exceptionlist = new HashSet<> ();
+	
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.frequency = frequency;
     }
 
     /**
@@ -33,8 +36,7 @@ public class RepetitiveEvent extends Event {
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        exceptionlist.add(date);
     }
 
     /**
@@ -42,8 +44,28 @@ public class RepetitiveEvent extends Event {
      * @return the type of repetition
      */
     public ChronoUnit getFrequency() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");    
+      return this.frequency;  
     }
+    
+    public Set<LocalDate> getException(){
+    	return exceptionlist;
+    }
+
+	@Override
+	public boolean isInDay(LocalDate aDay) {
+		if (!(aDay.isBefore(this.getStart().toLocalDate()) || aDay.isAfter(this.getStart().plus(this.getDuration()).toLocalDate()))) return true;
+		LocalDateTime temp = this.getStart();
+		while (temp.isBefore(aDay.atStartOfDay()) ) {
+    		temp = temp.plus(getFrequency().getDuration());
+			if(! (aDay.isBefore(temp.toLocalDate()) || aDay.isAfter(temp.plus(this.getDuration()).toLocalDate()))) {
+				if(!getException().contains(aDay)) return true;
+    		}
+						
+		}
+		return false;
+			
+	}
+    
+    
 
 }

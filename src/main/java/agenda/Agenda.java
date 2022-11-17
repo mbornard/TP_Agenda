@@ -25,10 +25,26 @@ public class Agenda {
      * @return and iteraror to the events that occur on that day
      */
     public List<Event> eventsInDay(LocalDate day) {
-    	List<Event> isDay = new ArrayList<Event> ();
+    	List<Event> list = new ArrayList<Event> ();
     	for (Event e : theEvents) {
-    		if(e.isInDay(day)) isDay.add(e);
+    		if(e.isInDay(day)) list.add(e);
     	}
-    	return isDAy;
+    	return list;
     }
+    
+    /**
+     * Trouver les événements de l'agenda en fonction de leur titre
+     * @param title le titre à rechercher
+     * @return les événements qui ont le même titre
+     */
+    public List<Event> findByTitle(String title) {
+        List<Event> list = new ArrayList<>() ;
+        for(Event e : theEvents) {
+        	if(e.getTitle().equals(title)) list.add(e);
+        }
+        return list;
+    }
+    
+
+
 }
