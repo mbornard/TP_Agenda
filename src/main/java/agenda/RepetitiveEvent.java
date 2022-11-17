@@ -59,8 +59,7 @@ public class RepetitiveEvent extends Event {
     		temp = temp.plus(getFrequency().getDuration());
 			if(! (aDay.isBefore(temp.toLocalDate()) || aDay.isAfter(temp.plus(this.getDuration()).toLocalDate()))) {
 				if(!getException().contains(aDay)) return true;
-    		}
-						
+    		}		
 		}
 		return false;
 			
