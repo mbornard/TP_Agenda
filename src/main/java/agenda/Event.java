@@ -40,8 +40,13 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
+    	return ((this.myStart.getDayOfYear() == aDay.getDayOfYear() 
+    			&& this.myStart.getYear() == aDay.getYear()) 
+    			|| (aDay.isBefore(ChronoLocalDate.from(this.getStart().plus(getDuration())))
+    					&& aDay.isAfter(ChronoLocalDate.from(this.getStart()))) || (this.getStart().plus(getDuration()).getDayOfYear() == aDay.getDayOfYear() && this.getStart().plus(getDuration()).getYear() == aDay.getYear()));
+    	//return (this.getStart().getYear() ==  aDay.getYear()) && (this.getStart().getDayOfYear() == aDay.getDayOfYear());
         // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        //throw new UnsupportedOperationException("Pas encore implémenté");
     }
    
     /**
